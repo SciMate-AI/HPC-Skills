@@ -1,0 +1,4 @@
+interface:
+  display_name: "HPC Gaussian"
+  short_description: "Build and debug Gaussian quantum chemistry workflows"
+  default_prompt: "Use $hpc-gaussian to create or repair a Gaussian input or execution workflow."

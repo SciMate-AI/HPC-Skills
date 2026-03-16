@@ -1,0 +1,4 @@
+interface:
+  display_name: "HPC OpenFOAM"
+  short_description: "Build and debug OpenFOAM CFD cases and numerics"
+  default_prompt: "Use $hpc-openfoam to create or repair an OpenFOAM case with stable numerics."

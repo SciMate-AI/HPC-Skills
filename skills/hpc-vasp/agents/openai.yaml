@@ -1,0 +1,4 @@
+interface:
+  display_name: "HPC VASP"
+  short_description: "Build and debug VASP input workflows"
+  default_prompt: "Use $hpc-vasp to create or repair a VASP input set and workflow."

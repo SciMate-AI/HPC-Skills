@@ -1,0 +1,4 @@
+interface:
+  display_name: "HPC SU2"
+  short_description: "Build and debug SU2 CFD configuration workflows"
+  default_prompt: "Use $hpc-su2 to create or repair a SU2 configuration and execution workflow."

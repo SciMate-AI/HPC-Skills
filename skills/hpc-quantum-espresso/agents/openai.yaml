@@ -1,0 +1,4 @@
+interface:
+  display_name: "HPC Quantum ESPRESSO"
+  short_description: "Build and debug Quantum ESPRESSO pw.x workflows"
+  default_prompt: "Use $hpc-quantum-espresso to create or repair a Quantum ESPRESSO input workflow."

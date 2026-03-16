@@ -1,0 +1,4 @@
+interface:
+  display_name: "HPC FEniCS"
+  short_description: "Translate PDEs into FEniCS or DOLFINx scripts"
+  default_prompt: "Use $hpc-fenics to build or debug a FEniCS PDE solver from a weak form."

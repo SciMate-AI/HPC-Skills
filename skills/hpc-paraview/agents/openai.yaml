@@ -1,0 +1,4 @@
+interface:
+  display_name: "HPC ParaView"
+  short_description: "Build and debug ParaView post-processing workflows"
+  default_prompt: "Use $hpc-paraview to create or repair a ParaView visualization or batch post-processing workflow."

@@ -1,0 +1,4 @@
+interface:
+  display_name: "HPC Orchestration"
+  short_description: "Coordinate scheduler, monitoring, and end-to-end HPC workflows"
+  default_prompt: "Use $hpc-orchestration to design or repair an end-to-end HPC cluster workflow."

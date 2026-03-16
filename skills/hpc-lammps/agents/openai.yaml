@@ -1,0 +1,4 @@
+interface:
+  display_name: "HPC LAMMPS"
+  short_description: "Build and debug LAMMPS MD input scripts"
+  default_prompt: "Use $hpc-lammps to create or repair a stable LAMMPS input deck."

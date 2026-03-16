@@ -1,0 +1,4 @@
+interface:
+  display_name: "HPC GROMACS"
+  short_description: "Build and debug GROMACS simulation workflows"
+  default_prompt: "Use $hpc-gromacs to create or repair a GROMACS simulation pipeline."

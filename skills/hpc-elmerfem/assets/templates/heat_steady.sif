@@ -1,0 +1,31 @@
+Header
+  CHECK KEYWORDS Warn
+  Mesh DB "." "mesh"
+End
+
+Simulation
+  Coordinate System = Cartesian 3D
+  Simulation Type = Steady State
+  Steady State Max Iterations = 1
+  Output Intervals = 1
+End
+
+Body 1
+  Equation = 1
+  Material = 1
+End
+
+Equation 1
+  Active Solvers(1) = 1
+End
+
+Solver 1
+  Equation = Heat Equation
+  Procedure = "HeatSolve" "HeatSolver"
+  Variable = Temperature
+  Linear System Solver = Iterative
+End
+
+Material 1
+  Heat Conductivity = 1.0
+End

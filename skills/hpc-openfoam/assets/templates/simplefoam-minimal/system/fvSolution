@@ -1,0 +1,33 @@
+solvers
+{
+    p
+    {
+        solver          GAMG;
+        tolerance       1e-6;
+        relTol          0.1;
+    }
+    U
+    {
+        solver          smoothSolver;
+        smoother        symGaussSeidel;
+        tolerance       1e-6;
+        relTol          0.1;
+    }
+}
+
+SIMPLE
+{
+    nNonOrthogonalCorrectors 0;
+}
+
+relaxationFactors
+{
+    fields
+    {
+        p               0.3;
+    }
+    equations
+    {
+        U               0.7;
+    }
+}

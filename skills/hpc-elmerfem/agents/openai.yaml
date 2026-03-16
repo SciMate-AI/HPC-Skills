@@ -1,0 +1,4 @@
+interface:
+  display_name: "HPC ElmerFEM"
+  short_description: "Build and debug ElmerFEM SIF workflows"
+  default_prompt: "Use $hpc-elmerfem to create or repair an ElmerFEM SIF workflow."

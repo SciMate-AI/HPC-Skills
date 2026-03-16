@@ -1,0 +1,8 @@
+SYSTEM = generic_static
+PREC   = Accurate
+ENCUT  = 520
+EDIFF  = 1E-6
+ISMEAR = -5
+SIGMA  = 0.05
+IBRION = -1
+NSW    = 0

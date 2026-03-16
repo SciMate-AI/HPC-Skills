@@ -1,0 +1,33 @@
+Header
+  CHECK KEYWORDS Warn
+  Mesh DB "." "mesh"
+End
+
+Simulation
+  Coordinate System = Cartesian 3D
+  Simulation Type = Steady State
+  Steady State Max Iterations = 1
+  Output Intervals = 1
+End
+
+Body 1
+  Equation = 1
+  Material = 1
+End
+
+Equation 1
+  Active Solvers(1) = 1
+End
+
+Solver 1
+  Equation = Navier-Stokes
+  Procedure = "FlowSolve" "FlowSolver"
+  Variable = Flow Solution
+  Variable DOFs = 4
+  Linear System Solver = Iterative
+End
+
+Material 1
+  Viscosity = 1.0e-3
+  Density = 1000.0
+End

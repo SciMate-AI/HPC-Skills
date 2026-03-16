@@ -1,0 +1,4 @@
+interface:
+  display_name: "HPC CalculiX"
+  short_description: "Build and debug CalculiX input decks"
+  default_prompt: "Use $hpc-calculix to create or repair a CalculiX .inp workflow."

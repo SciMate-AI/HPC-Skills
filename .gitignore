@@ -1,0 +1,34 @@
+# Python cache and tooling
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+
+# OS/editor noise
+.DS_Store
+Thumbs.db
+
+# Local research and scratch outputs
+large_tool_results/
+memory/
+
+# Common HPC scheduler outputs
+slurm-*.out
+slurm-*.err
+*.out
+*.err
+*.log
+
+# Common simulation restart or trajectory artifacts
+*.cpt
+*.xtc
+*.trr
+*.edr
+*.xvg
+*.frd
+*.eig
+*.tpr
+
+# Generic temp files
+*.tmp
+*.bak

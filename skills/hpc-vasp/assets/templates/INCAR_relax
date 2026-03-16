@@ -1,0 +1,10 @@
+SYSTEM = generic_relax
+PREC   = Accurate
+ENCUT  = 520
+EDIFF  = 1E-6
+EDIFFG = -0.02
+ISMEAR = 0
+SIGMA  = 0.05
+IBRION = 2
+NSW    = 100
+ISIF   = 3
