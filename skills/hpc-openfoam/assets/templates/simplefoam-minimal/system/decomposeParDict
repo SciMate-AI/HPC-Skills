@@ -11,22 +11,12 @@ FoamFile
     format      ascii;
     class       dictionary;
     location    "system";
-    object      controlDict;
+    object      decomposeParDict;
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-application     simpleFoam;
+numberOfSubdomains 4;
 
-startFrom       startTime;
-startTime       0;
-stopAt          endTime;
-endTime         200;
-deltaT          1;
-
-writeControl    timeStep;
-writeInterval   50;
-purgeWrite      3;
-
-runTimeModifiable true;
+method          scotch;
 
 // ************************************************************************* //

@@ -9,7 +9,7 @@
 set -euo pipefail
 
 case_dir="${1:-$PWD}"
-solver="${2:-simpleFoam}"
+solver_or_module="${2:-simpleFoam}"
 
 cd "$case_dir"
 
@@ -17,5 +17,14 @@ cd "$case_dir"
 # module load openfoam
 
 decomposePar -force
-srun -n "${SLURM_NTASKS}" "$solver" -parallel > "log.${solver}" 2>&1
+
+if command -v "$solver_or_module" >/dev/null 2>&1; then
+  run_cmd=("$solver_or_module" -parallel)
+  log_name="$solver_or_module"
+else
+  run_cmd=(foamRun -solver "$solver_or_module" -parallel)
+  log_name="foamRun_${solver_or_module}"
+fi
+
+srun -n "${SLURM_NTASKS}" "${run_cmd[@]}" > "log.${log_name}" 2>&1
 reconstructPar

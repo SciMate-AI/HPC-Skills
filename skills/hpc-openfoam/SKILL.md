@@ -25,9 +25,9 @@ Follow a progressive loading workflow.
 1. Classify the case first: steady or transient, incompressible or compressible, single-phase or multiphase, laminar or turbulent.
 2. Generate the minimum consistent file set across `0/`, `constant/`, and `system/`. Do not edit one layer in isolation if it changes the required fields elsewhere.
 3. Match solver family and fields:
-   - `simpleFoam`: steady incompressible RANS; expect `U`, `p`, and turbulence fields if `RAS`.
-   - `pimpleFoam`: transient incompressible; review timestep control and outer correctors.
-   - `interFoam`: multiphase; control both `maxCo` and `maxAlphaCo`.
+   - `simpleFoam` or `foamRun -solver incompressibleFluid`: steady incompressible; expect `U`, `p`, and turbulence fields if `RAS`.
+   - `pimpleFoam` or `foamRun -solver incompressibleFluid` with transient/PIMPLE settings: transient incompressible; review timestep control and outer correctors.
+   - `interFoam` or `foamRun -solver incompressibleVoF`: multiphase; control both `maxCo` and `maxAlphaCo`.
 4. Validate mesh and numerics before a long run:
    - run `blockMesh` or the mesh generator
    - run `checkMesh`
@@ -35,6 +35,9 @@ Follow a progressive loading workflow.
 5. Keep parallel settings aligned:
    - make `numberOfSubdomains` match the intended MPI rank count
    - prefer `scotch` for complex geometries unless the user requests a manual layout
+6. Resolve executable compatibility before launch:
+   - if `simpleFoam`/`pimpleFoam`/`interFoam` exists, it is valid to run directly
+   - otherwise prefer `foamRun -solver <moduleName>` and verify the module loads
 
 ## Guardrails
 
@@ -58,7 +61,7 @@ Load these on demand:
 Use `assets/templates/` when a concrete case skeleton is needed, especially:
 
 - `simplefoam-minimal/` for a minimal steady incompressible case
-- `interfoam-minimal/` for a minimal two-phase transient case
+- `interfoam-minimal/` as a multiphase checklist placeholder (not a self-contained runnable case)
 - `openfoam-parallel-slurm.sh` for a minimal scheduled parallel run scaffold
 
 ## Outputs

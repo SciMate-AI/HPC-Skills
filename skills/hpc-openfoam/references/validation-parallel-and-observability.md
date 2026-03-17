@@ -19,6 +19,12 @@ Use this order:
 
 If `checkMesh` reports quality problems, review numerics before spending time on solver tuning.
 
+Solver launch guardrail:
+
+- resolve executable form before the dry-start:
+  - direct binary (for example `simpleFoam`) when available
+  - otherwise `foamRun -solver <moduleName>` on modular OpenFOAM installations
+
 ## Residual and termination controls
 
 OpenFOAM supports additional termination logic through `residualControl` in `fvSolution`.

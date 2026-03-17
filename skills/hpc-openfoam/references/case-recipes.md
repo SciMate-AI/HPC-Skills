@@ -12,6 +12,7 @@
 Default pattern:
 
 - solver family: `simpleFoam` for steady RANS, `pimpleFoam` for transient
+  - OpenFOAM-11 modular fallback: `foamRun -solver incompressibleFluid`
 - fields:
   - `U`
   - `p`
@@ -36,6 +37,7 @@ Practical numerics:
 Default pattern:
 
 - solver family: often `simpleFoam` for steady attached-flow screening, `pimpleFoam` if transients matter
+  - OpenFOAM-11 modular fallback: `foamRun -solver incompressibleFluid`
 - fields:
   - `U`
   - `p`
@@ -61,6 +63,7 @@ Common failure mode:
 Default pattern:
 
 - solver family: `interFoam`
+  - OpenFOAM-11 modular fallback: `foamRun -solver incompressibleVoF`
 - fields:
   - `U`
   - `p_rgh`

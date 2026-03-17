@@ -17,7 +17,7 @@ Before queue submission:
 
 1. run the mesh generator such as `blockMesh` or the imported-mesh workflow
 2. run `checkMesh`
-3. confirm the solver name in `system/controlDict`
+3. confirm the solver launch form for this environment (`simpleFoam`-style binary or `foamRun -solver <module>`)
 4. confirm all required fields exist under `0/`
 5. confirm `decomposeParDict` matches the intended rank count if the job will run in parallel
 
@@ -37,7 +37,12 @@ Typical command structure:
 
 ```bash
 decomposePar -force
-srun simpleFoam -parallel > log.simpleFoam 2>&1
+solver_or_module="${1:-simpleFoam}"
+if command -v "$solver_or_module" >/dev/null 2>&1; then
+  srun "$solver_or_module" -parallel > "log.${solver_or_module}" 2>&1
+else
+  srun foamRun -solver "$solver_or_module" -parallel > "log.foamRun_${solver_or_module}" 2>&1
+fi
 reconstructPar
 ```
 

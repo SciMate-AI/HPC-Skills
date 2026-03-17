@@ -11,32 +11,32 @@
 
 Pick the solver from the physics first. Do not start from a tutorial filename and retrofit the physics later.
 
-Use this map:
+Use this map (physics family first, executable form second):
 
-- `simpleFoam`
+- `simpleFoam` or `foamRun -solver incompressibleFluid`
   - steady-state
   - incompressible
   - turbulence-capable
   - pressure variable is kinematic pressure `p`
   - `fvSchemes` should use `steadyState` time treatment
-- `pimpleFoam`
+- `pimpleFoam` or `foamRun -solver incompressibleFluid`
   - transient
   - incompressible
   - turbulence-capable
   - pressure variable is kinematic pressure `p`
   - algorithm is `PIMPLE`
-- `interFoam`
+- `interFoam` or `foamRun -solver incompressibleVoF`
   - transient
   - incompressible
   - two immiscible phases
   - hydrostatic-pressure-aware
   - mandatory fields include `p`, `p_rgh`, and `U`
-- `rhoPimpleFoam`
+- `rhoPimpleFoam` or `foamRun -solver fluid`
   - transient
   - compressible
   - heat-transfer capable
   - mandatory fields include `p`, `U`, and `T`
-- `buoyantPimpleFoam`
+- `buoyantPimpleFoam` or `foamRun -solver fluid`
   - transient
   - buoyant heat transfer
   - mandatory fields include `p`, `p_rgh`, `U`, and `T`
@@ -47,6 +47,12 @@ Inference from the official solver pages:
 - if the run is transient incompressible, default toward `pimpleFoam`
 - if free-surface or two-phase interface tracking is required, default toward `interFoam`
 - if thermodynamics and density changes are core physics, move into a compressible or buoyant family
+
+Launch compatibility check before run:
+
+- if legacy solver binary exists (`simpleFoam`, `pimpleFoam`, `interFoam`), direct launch is valid
+- if binary is missing but `foamRun` exists, launch with the module solver (`incompressibleFluid`, `incompressibleVoF`, `fluid`)
+- if `foamRun` reports missing `lib<solver>.so`, do not proceed until the module name is corrected
 
 ## Pressure conventions
 
