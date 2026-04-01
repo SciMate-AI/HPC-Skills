@@ -1,0 +1,12 @@
+cmake_minimum_required(VERSION 3.18)
+project(tpetra_belos_ifpack2_minimal LANGUAGES CXX)
+
+find_package(Trilinos REQUIRED)
+
+add_executable(tpetra_belos_ifpack2_minimal tpetra_belos_ifpack2_minimal.cpp)
+target_include_directories(tpetra_belos_ifpack2_minimal PRIVATE ${Trilinos_INCLUDE_DIRS})
+target_link_libraries(tpetra_belos_ifpack2_minimal PRIVATE ${Trilinos_LIBRARIES})
+if(Trilinos_TPL_LIBRARIES)
+  target_link_libraries(tpetra_belos_ifpack2_minimal PRIVATE ${Trilinos_TPL_LIBRARIES})
+endif()
+target_compile_features(tpetra_belos_ifpack2_minimal PRIVATE cxx_std_14)

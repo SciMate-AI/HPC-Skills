@@ -41,7 +41,16 @@ Use the normalized folders in `skills/`.
 ## Current skills
 
 - `hpc-openfoam`
+- `hpc-foundations`
+- `hpc-mpi`
+- `hpc-toolchains`
+- `hpc-spack`
+- `hpc-gpu-stack`
+- `hpc-gmsh`
 - `hpc-fenics`
+- `hpc-petsc`
+- `hpc-hypre`
+- `hpc-trilinos`
 - `hpc-lammps`
 - `hpc-gromacs`
 - `hpc-su2`

@@ -1,0 +1,21 @@
+<ParameterList name="Linear Solver">
+  <ParameterList name="Linear Solver Types">
+    <ParameterList name="Belos">
+      <Parameter name="Solver Type" type="string" value="Block GMRES"/>
+      <ParameterList name="Solver Types">
+        <ParameterList name="Block GMRES">
+          <Parameter name="Maximum Iterations" type="int" value="200"/>
+          <Parameter name="Convergence Tolerance" type="double" value="1.0e-8"/>
+        </ParameterList>
+      </ParameterList>
+    </ParameterList>
+  </ParameterList>
+  <ParameterList name="Preconditioner Types">
+    <ParameterList name="Ifpack2">
+      <Parameter name="Prec Type" type="string" value="RELAXATION"/>
+      <ParameterList name="Ifpack2 Settings">
+        <Parameter name="relaxation: type" type="string" value="Symmetric Gauss-Seidel"/>
+      </ParameterList>
+    </ParameterList>
+  </ParameterList>
+</ParameterList>

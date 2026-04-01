@@ -1,0 +1,4 @@
+interface:
+  display_name: "HPC MPI"
+  short_description: "Build and debug MPI launch, wrapper, and binding workflows"
+  default_prompt: "Use $hpc-mpi to create or repair an MPI build and launch path with consistent wrappers and scheduler integration."

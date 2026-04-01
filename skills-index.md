@@ -18,7 +18,23 @@ Use `skills/` as the only maintained distribution surface.
 
 | Skill | Focus | Entry |
 | --- | --- | --- |
+| HPC Foundations | foundational HPC concepts, schedulers, Linux, storage, containers, and cluster basics | [skills/hpc-foundations/SKILL.md](skills/hpc-foundations/SKILL.md) |
+| HPC MPI | MPI families, launcher semantics, wrapper compilers, PMI or PMIx, binding, scheduler handoff | [skills/hpc-mpi/SKILL.md](skills/hpc-mpi/SKILL.md) |
+| HPC Toolchains | compiler families, CMake, ABI hygiene, modules, Spack, reproducible build stacks | [skills/hpc-toolchains/SKILL.md](skills/hpc-toolchains/SKILL.md) |
+| HPC Spack | specs, variants, compilers, externals, environments, concretization, binary reuse | [skills/hpc-spack/SKILL.md](skills/hpc-spack/SKILL.md) |
 | HPC Orchestration | scheduler submission, queue monitoring, log tracking, lifecycle control | [skills/hpc-orchestration/SKILL.md](skills/hpc-orchestration/SKILL.md) |
+
+## GPU And Acceleration
+
+| Skill | Focus | Entry |
+| --- | --- | --- |
+| GPU Stack | CUDA, `nvcc`, GPU-aware MPI, rank-to-GPU mapping, Slurm GPU launch, memory and streams | [skills/hpc-gpu-stack/SKILL.md](skills/hpc-gpu-stack/SKILL.md) |
+
+## Meshing And Geometry
+
+| Skill | Focus | Entry |
+| --- | --- | --- |
+| Gmsh | `.geo`, Python API, OpenCASCADE, physical groups, size fields, export and solver handoff | [skills/hpc-gmsh/SKILL.md](skills/hpc-gmsh/SKILL.md) |
 
 ## How To Use
 
@@ -41,6 +57,14 @@ Use `skills/` as the only maintained distribution surface.
 | FEniCS | UFL, DOLFINx, PDE scripts, PETSc, mixed methods | [skills/hpc-fenics/SKILL.md](skills/hpc-fenics/SKILL.md) |
 | CalculiX | Abaqus-style `.inp` decks, static/frequency/thermal workflows | [skills/hpc-calculix/SKILL.md](skills/hpc-calculix/SKILL.md) |
 | ElmerFEM | `.sif` workflows, mesh-ID mapping, coupled solvers, transient control | [skills/hpc-elmerfem/SKILL.md](skills/hpc-elmerfem/SKILL.md) |
+
+## Linear Algebra And Solver Libraries
+
+| Skill | Focus | Entry |
+| --- | --- | --- |
+| PETSc | `Vec` or `Mat`, `KSP`, `PC`, `SNES`, `TS`, options database, MPI assembly | [skills/hpc-petsc/SKILL.md](skills/hpc-petsc/SKILL.md) |
+| hypre | `IJ` or `Struct` or `SStruct`, `BoomerAMG`, Krylov solvers, PETSc-backed integration | [skills/hpc-hypre/SKILL.md](skills/hpc-hypre/SKILL.md) |
+| Trilinos | `Tpetra`, `Belos`, `Ifpack2`, `MueLu`, `Amesos2`, CMake and type-instantiation discipline | [skills/hpc-trilinos/SKILL.md](skills/hpc-trilinos/SKILL.md) |
 
 ## Molecular Simulation
 
@@ -70,12 +94,21 @@ Use this quick map when the user asks for:
 - Open-source CFD dictionaries and patch logic -> `hpc-openfoam`
 - SU2 `.cfg` and marker debugging -> `hpc-su2`
 - PDE weak forms, UFL, or DOLFINx -> `hpc-fenics`
+- PETSc `KSP` or `SNES` or `TS`, options database tuning, or MPI assembly debugging -> `hpc-petsc`
+- hypre `BoomerAMG`, `IJ` matrices, or PETSc-backed hypre preconditioning -> `hpc-hypre`
+- Trilinos package selection, `Tpetra`, `Belos`, `Ifpack2`, or `MueLu` tuning -> `hpc-trilinos`
 - Abaqus-like `.inp` decks -> `hpc-calculix`
 - Elmer `.sif` blocks and body or boundary IDs -> `hpc-elmerfem`
 - Classical or coarse-grained MD input scripts -> `hpc-lammps`
 - Biomolecular MD staging and `.mdp` tuning -> `hpc-gromacs`
 - cluster submission, queue monitoring, or runtime log tracking -> `hpc-orchestration`
 - cluster transfers, remote development, notebooks, or profiling -> `hpc-orchestration`
+- general HPC concepts, schedulers, Linux cluster usage, containers, or storage basics -> `hpc-foundations`
+- Open MPI or MPICH or Intel MPI or MVAPICH2 launch behavior, `mpirun` versus `srun`, or `mpicc` wrapper issues -> `hpc-mpi`
+- GCC or Clang or oneAPI selection, CMake or `find_package`, ABI or link failures, modules, or Spack environments -> `hpc-toolchains`
+- Spack specs or variants or environments or concretization or external packages -> `hpc-spack`
+- CUDA or `nvcc` or GPU-aware MPI or `CUDA_VISIBLE_DEVICES` or Slurm GPU mapping -> `hpc-gpu-stack`
+- Gmsh `.geo` or Python API or physical groups or transfinite meshing or `.msh` export -> `hpc-gmsh`
 - Quantum ESPRESSO `pw.x` inputs -> `hpc-quantum-espresso`
 - VASP four-file input sets -> `hpc-vasp`
 - Gaussian route sections, checkpoints, or quantum-chemistry restarts -> `hpc-gaussian`
@@ -86,7 +119,15 @@ Use this quick map when the user asks for:
 High-value templates currently included:
 
 - OpenFOAM: minimal `simpleFoam` and `interFoam` skeletons
+- HPC MPI: minimal MPI hello world, compile script, and pure or hybrid Slurm launch templates
+- HPC Toolchains: minimal MPI-enabled CMake smoke project, GCC or OpenMPI configure script, build-smoke Slurm script, and Spack environment example
+- HPC Spack: minimal environment, compiler and external-package config examples, and install/build workflow templates
+- GPU Stack: minimal CUDA vector-add kernel, NVCC build script, and single- or multi-rank GPU Slurm launch templates
+- Gmsh: minimal `.geo`, Python OpenCASCADE example, and batch or Slurm meshing scripts
 - FEniCS: DOLFINx Poisson and transient diffusion scripts
+- PETSc: minimal C and `petsc4py` KSP solve skeletons plus build and Slurm run templates
+- hypre: minimal `IJ` plus `PCG` plus `BoomerAMG` solve skeleton plus build and Slurm run templates
+- Trilinos: minimal `Tpetra` plus `Belos` plus `Ifpack2` skeleton, `Stratimikos` parameter XML, and build or Slurm run templates
 - LAMMPS: LJ and EAM minimal decks
 - GROMACS: EM, NVT, NPT, and production `.mdp`
 - SU2: steady incompressible, compressible external aero, and unsteady windowed `.cfg`

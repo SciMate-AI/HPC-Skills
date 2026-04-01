@@ -1,0 +1,4 @@
+interface:
+  display_name: "HPC PETSc"
+  short_description: "Build and tune PETSc linear, nonlinear, and TS workflows"
+  default_prompt: "Use $hpc-petsc to create or repair a PETSc solver stack with a stable baseline."

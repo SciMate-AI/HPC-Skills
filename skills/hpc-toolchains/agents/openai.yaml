@@ -1,0 +1,4 @@
+interface:
+  display_name: "HPC Toolchains"
+  short_description: "Build and repair compiler, CMake, module, and Spack stacks"
+  default_prompt: "Use $hpc-toolchains to create or repair an HPC build stack with a coherent compiler and dependency strategy."

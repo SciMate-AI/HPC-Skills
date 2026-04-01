@@ -1,0 +1,4 @@
+interface:
+  display_name: "HPC hypre"
+  short_description: "Build and tune hypre IJ, AMG, and Krylov solver workflows"
+  default_prompt: "Use $hpc-hypre to create or repair a hypre solver setup with a stable BoomerAMG baseline."

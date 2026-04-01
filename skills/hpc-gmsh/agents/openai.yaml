@@ -1,0 +1,4 @@
+interface:
+  display_name: "HPC Gmsh"
+  short_description: "Build and debug Gmsh geometry, tagging, and meshing workflows"
+  default_prompt: "Use $hpc-gmsh to create or repair a Gmsh model with clean physical groups and mesh controls."

@@ -1,0 +1,4 @@
+interface:
+  display_name: "HPC Trilinos"
+  short_description: "Build and tune Trilinos Tpetra, Belos, Ifpack2, and MueLu workflows"
+  default_prompt: "Use $hpc-trilinos to create or repair a Trilinos solver stack with a minimal coherent package set."

@@ -1,0 +1,7 @@
+spack:
+  concretizer:
+    unify: true
+  specs:
+  - hdf5 +mpi
+  - netcdf-c +mpi
+  view: false

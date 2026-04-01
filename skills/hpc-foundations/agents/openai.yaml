@@ -1,0 +1,4 @@
+interface:
+  display_name: "HPC Foundations"
+  short_description: "Navigate foundational HPC cluster knowledge"
+  default_prompt: "Use $hpc-foundations to navigate HPC basics, schedulers, Linux, storage, and environment setup."

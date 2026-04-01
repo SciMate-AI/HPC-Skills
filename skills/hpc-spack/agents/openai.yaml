@@ -1,0 +1,4 @@
+interface:
+  display_name: "HPC Spack"
+  short_description: "Build and repair Spack environments, specs, and site stacks"
+  default_prompt: "Use $hpc-spack to create or repair a Spack environment with coherent compilers, externals, and concretization."

@@ -1,0 +1,11 @@
+packages:
+  mpi:
+    externals:
+    - spec: openmpi@4.1.6
+      prefix: /opt/openmpi/4.1.6
+    buildable: false
+  cuda:
+    externals:
+    - spec: cuda@12.4
+      prefix: /usr/local/cuda-12.4
+    buildable: false

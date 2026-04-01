@@ -1,0 +1,4 @@
+interface:
+  display_name: "HPC GPU Stack"
+  short_description: "Build and debug CUDA, GPU mapping, and scheduler-integrated GPU runs"
+  default_prompt: "Use $hpc-gpu-stack to create or repair a CUDA build and launch workflow with correct GPU mapping."
