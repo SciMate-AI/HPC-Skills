@@ -1,6 +1,6 @@
 # scimate
 
-Portable HPC skill collection for agentic coding tools.
+Portable agent skills for High Performance Computing workflows, covering CFD, FEM, molecular simulation, electronic structure, meshing, visualization, MPI, GPU, and reproducible toolchains.
 
 ## Repository
 
