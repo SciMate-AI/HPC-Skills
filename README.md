@@ -1,6 +1,6 @@
 # scimate
 
-Portable agent skills for High Performance Computing workflows, covering CFD, FEM, molecular simulation, electronic structure, meshing, visualization, MPI, GPU, and reproducible toolchains.
+Portable agent skills for High Performance Computing workflows across OpenFOAM, SU2, FEniCS, CalculiX, ElmerFEM, PETSc, hypre, Trilinos, LAMMPS, GROMACS, Quantum ESPRESSO, VASP, Gaussian, ParaView, and Gmsh, plus MPI, GPU, Spack, reproducible toolchains, and cluster orchestration.
 
 ## Repository
 
