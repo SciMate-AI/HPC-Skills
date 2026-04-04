@@ -1,8 +1,16 @@
+# Static SCF INCAR template
+# Run AFTER geometry relaxation; copy CONTCAR to POSCAR first
+# Produces CHGCAR/WAVECAR for DOS, bands, or optical follow-on
 SYSTEM = generic_static
 PREC   = Accurate
-ENCUT  = 520
-EDIFF  = 1E-6
-ISMEAR = -5
-SIGMA  = 0.05
-IBRION = -1
-NSW    = 0
+ENCUT  = 520          # must match relaxation ENCUT for energy consistency
+EDIFF  = 1E-6         # electronic convergence
+ISMEAR = -5           # tetrahedron method with Blochl corrections (most accurate for static)
+                      # requires Gamma-centered k-mesh with >= 3 k-points per direction
+                      # use ISMEAR=0 SIGMA=0.05 if k-mesh is too coarse for tetrahedron
+IBRION = -1           # no ionic relaxation
+NSW    = 0            # zero ionic steps
+LORBIT = 11           # write PROCAR for projected DOS and site-decomposed analysis
+NEDOS  = 2001         # number of DOS grid points (default 301 is too coarse)
+LWAVE  = .TRUE.       # save WAVECAR for bands/optical follow-on
+LCHARG = .TRUE.       # save CHGCAR for DOS/bands (ICHARG=11)

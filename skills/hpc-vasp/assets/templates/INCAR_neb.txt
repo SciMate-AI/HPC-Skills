@@ -1,0 +1,24 @@
+# NEB (Nudged Elastic Band) transition state INCAR template
+# Requires directory structure: 00/ 01/ ... N+1/ with POSCAR in each
+# 00/ and (N+1)/ are frozen endpoints; intermediate images are optimized
+# Total MPI ranks must be divisible by IMAGES
+SYSTEM = neb_calculation
+PREC   = Accurate
+ENCUT  = 520
+EDIFF  = 1E-6
+
+IMAGES = 4             # number of intermediate images (excluding endpoints)
+SPRING = -5            # spring constant; negative activates NEB
+LCLIMB = .TRUE.        # climbing image NEB; finds exact saddle point
+                       # TIP: run with .FALSE. first for ~50 steps, then restart with .TRUE.
+
+IBRION = 1             # quasi-Newton (recommended for NEB; CG often fails)
+NSW    = 200           # max ionic steps
+EDIFFG = -0.05         # force convergence; use -0.03 for higher accuracy
+POTIM  = 0.5
+
+ISMEAR = 0
+SIGMA  = 0.05
+LREAL  = Auto
+LWAVE  = .FALSE.
+LCHARG = .FALSE.

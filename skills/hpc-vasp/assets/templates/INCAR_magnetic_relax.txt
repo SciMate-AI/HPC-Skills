@@ -1,0 +1,35 @@
+# Magnetic bulk relaxation INCAR template
+# For spin-polarized systems: Fe, Co, Ni, Mn oxides, etc.
+# Adjust MAGMOM for your specific system and magnetic ordering
+SYSTEM = magnetic_relax
+PREC   = Accurate
+ENCUT  = 520
+EDIFF  = 1E-6
+EDIFFG = -0.02
+
+IBRION = 2
+NSW    = 300
+ISIF   = 3            # full cell relax; use ISIF=2 for surfaces
+
+# Spin polarization
+ISPIN  = 2            # enable spin-polarized calculation
+MAGMOM = 4*5.0 4*-5.0 12*0.6   # example: 4 Fe up, 4 Fe down (AFM), 12 O
+                      # adjust count and values for your system
+                      # start with moments LARGER than expected converged value
+
+# Smearing (use ISMEAR=1 SIGMA=0.2 for metallic systems)
+ISMEAR = 0
+SIGMA  = 0.05
+
+# Robust convergence for magnetic systems
+ALGO   = All          # more robust than Fast for magnetic SCF
+NELM   = 200          # magnetic systems may need more SCF steps
+AMIX   = 0.2          # reduced mixing for stability
+BMIX   = 0.0001
+AMIX_MAG = 0.8
+BMIX_MAG = 0.00001
+
+LORBIT = 11           # print atomic magnetic moments
+LREAL  = Auto
+LWAVE  = .FALSE.
+LCHARG = .TRUE.

@@ -1,9 +1,17 @@
+# Band structure INCAR template
+# Requires CHGCAR from a converged static SCF calculation in the same directory
+# Use line-mode KPOINTS file with high-symmetry path (from VASPKIT, SeeK-path, or pymatgen)
+# NOTE: For DFT+U or hybrid functionals, do NOT use ICHARG=11;
+#       use the zero-weight k-points method instead (see hybrid-functional-recipes.md)
 SYSTEM = generic_bands
 PREC   = Accurate
-ENCUT  = 520
+ENCUT  = 520          # must match static calculation
 EDIFF  = 1E-6
-ISMEAR = 0
+ISMEAR = 0            # Gaussian; tetrahedron method not valid for line-mode k-points
 SIGMA  = 0.05
-IBRION = -1
+IBRION = -1           # no ionic relaxation
 NSW    = 0
-ICHARG = 11
+ICHARG = 11           # read CHGCAR and keep fixed (non-self-consistent)
+LORBIT = 11           # write PROCAR for orbital-projected band character
+LWAVE  = .FALSE.
+LCHARG = .FALSE.

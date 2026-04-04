@@ -15,6 +15,17 @@ FoamFile
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
+// For laminar flow:
 simulationType  laminar;
+
+// For RANS turbulence, replace the above with:
+// simulationType  RAS;
+// RAS
+// {
+//     RASModel    kOmegaSST;    // recommended default RANS model
+//     turbulence  on;
+//     printCoeffs on;
+// }
+// Then add 0/k, 0/omega, 0/nut field files (see turbulence-bc-recipes.md)
 
 // ************************************************************************* //

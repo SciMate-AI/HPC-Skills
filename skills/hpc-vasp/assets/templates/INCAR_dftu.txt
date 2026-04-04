@@ -1,0 +1,35 @@
+# DFT+U INCAR template for transition metal oxides
+# Dudarev method (LDAUTYPE=2): only U_eff = U - J matters
+# Adjust LDAUL, LDAUU, LDAUJ for your species (order matches POTCAR)
+SYSTEM = dftu_relaxation
+PREC   = Accurate
+ENCUT  = 520
+EDIFF  = 1E-6
+EDIFFG = -0.02
+
+IBRION = 2
+NSW    = 200
+ISIF   = 3
+
+ISPIN  = 2
+MAGMOM = 4*5.0 4*-5.0 8*0.6   # adjust for your system
+
+# DFT+U settings
+LDAU     = .TRUE.     # enable DFT+U
+LDAUTYPE = 2          # Dudarev (simplified rotationally invariant)
+LDAUL    = 2 -1       # l quantum number: 2=d-electrons (metal), -1=no U (oxygen)
+LDAUU    = 5.0 0.0    # U value (eV); see dftu-and-advanced-xc.md for common values
+LDAUJ    = 0.0 0.0    # J value (eV); for LDAUTYPE=2, only U-J matters
+LMAXMIX  = 4          # CRITICAL: must be 4 for d-elements, 6 for f-elements
+
+ISMEAR = 0
+SIGMA  = 0.05
+ALGO   = All          # robust for DFT+U
+NELM   = 200
+AMIX   = 0.1
+BMIX   = 0.00001
+
+LORBIT = 11
+LREAL  = Auto
+LWAVE  = .FALSE.
+LCHARG = .TRUE.

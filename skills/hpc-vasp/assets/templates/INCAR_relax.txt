@@ -1,10 +1,17 @@
+# Geometry relaxation INCAR template
+# Adjust ENCUT based on your POTCAR: grep ENMAX POTCAR, use >= 1.3*max(ENMAX) for ISIF=3
+# For surfaces/slabs: change ISIF=2 (prevents vacuum collapse)
+# For metals: change ISMEAR=1 and SIGMA=0.2
 SYSTEM = generic_relax
 PREC   = Accurate
-ENCUT  = 520
-EDIFF  = 1E-6
-EDIFFG = -0.02
-ISMEAR = 0
-SIGMA  = 0.05
-IBRION = 2
-NSW    = 100
-ISIF   = 3
+ENCUT  = 520          # verify against POTCAR ENMAX; 520 covers most standard POTCARs
+EDIFF  = 1E-6         # electronic convergence (eV); tighten to 1E-8 for phonon pre-relax
+EDIFFG = -0.02        # ionic convergence: max force < 0.02 eV/A (negative = force criterion)
+ISMEAR = 0            # Gaussian smearing; safe for insulators/semiconductors/surfaces
+SIGMA  = 0.05         # smearing width (eV); use 0.2 with ISMEAR=1 for metals
+IBRION = 2            # conjugate gradient; use 1 (quasi-Newton) near equilibrium
+NSW    = 300           # max ionic steps; increase if not converging
+ISIF   = 3            # relax ions + cell shape + volume; use 2 for slabs
+LREAL  = Auto         # real-space projection; use .FALSE. for < 20 atoms
+LWAVE  = .FALSE.      # skip WAVECAR to save disk; set .TRUE. if follow-on needs it
+LCHARG = .TRUE.       # save CHGCAR for static/DOS/bands follow-on

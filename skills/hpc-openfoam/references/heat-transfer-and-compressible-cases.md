@@ -1,64 +1,258 @@
-# OpenFOAM Heat-Transfer And Compressible Cases
+# OpenFOAM Heat Transfer and Compressible Recipes
 
-## Contents
+Concrete setup for buoyant, compressible, and conjugate heat transfer cases.
 
-- When to leave incompressible templates
-- Buoyant and thermophysical field sets
-- Pressure conventions in heated flows
-- Practical startup rules
+## When to Leave Incompressible Templates
 
-## When to leave incompressible templates
-
-Move out of a plain incompressible case when:
-
-- density change matters
-- heat transfer is a primary part of the problem
-- buoyancy drives the flow
-- the solver family explicitly requires thermophysical models
+| Physics | Solver | Key difference |
+| --- | --- | --- |
+| Isothermal incompressible | simpleFoam / pimpleFoam | No energy equation, p is kinematic |
+| Forced convection (small ΔT) | buoyantSimpleFoam | Energy equation, p_rgh, Boussinesq OK |
+| Natural convection (large ΔT) | buoyantSimpleFoam / buoyantPimpleFoam | Full buoyancy, thermophysical model |
+| Compressible (Ma > 0.3) | rhoPimpleFoam / rhoSimpleFoam | Density varies with pressure; hePsiThermo |
+| Conjugate heat transfer | chtMultiRegionFoam | Multi-region: fluid + solid coupling |
 
 Do not bolt temperature onto an incompressible template without checking solver-family requirements.
 
-## Buoyant and thermophysical field sets
+## thermophysicalProperties Templates
 
-The official `buoyantPimpleFoam` guide lists mandatory fields:
+### Incompressible with Temperature (Boussinesq)
 
-- `p`
-- `p_rgh`
-- `U`
-- `T`
+```c++
+thermoType
+{
+    type            heRhoThermo;
+    mixture         pureMixture;
+    transport       const;
+    thermo          hConst;
+    equationOfState Boussinesq;
+    specie          specie;
+    energy          sensibleEnthalpy;
+}
+mixture
+{
+    specie      { molWeight 28.96; }
+    thermodynamics { Cp 1004.4; Hf 0; }
+    transport   { mu 1.831e-05; Pr 0.705; }
+    equationOfState { rho0 1.225; T0 300; beta 3.33e-03; }
+}
+```
 
-It also expects:
+### Ideal Gas (Compressible)
 
-- `constant/turbulenceProperties`
-- heat-transfer configuration under `constant/thermophysicalModels`
-- optional `constant/fvOptions`
+```c++
+thermoType
+{
+    type            hePsiThermo;
+    mixture         pureMixture;
+    transport       sutherland;
+    thermo          hConst;
+    equationOfState perfectGas;
+    specie          specie;
+    energy          sensibleEnthalpy;
+}
+mixture
+{
+    specie      { molWeight 28.96; }
+    thermodynamics { Cp 1004.4; Hf 0; }
+    transport   { As 1.67212e-06; Ts 170.672; }
+}
+```
 
-Inference for the skill:
+### Density-Based with Perfect Gas
 
-- if the user asks for buoyant heat transfer, assume both thermal and hydrostatic pressure setup must be reviewed
-- if the case uses a buoyant solver, `p_rgh` is a first-class field, not an optional extra
+```c++
+thermoType
+{
+    type            heRhoThermo;
+    mixture         pureMixture;
+    transport       const;
+    thermo          hConst;
+    equationOfState perfectGas;
+    specie          specie;
+    energy          sensibleEnthalpy;
+}
+mixture
+{
+    specie      { molWeight 28.96; }
+    thermodynamics { Cp 1004.4; Hf 0; }
+    transport   { mu 1.831e-05; Pr 0.705; }
+}
+```
 
-## Pressure conventions in heated flows
+### Common Fluid Properties
 
-Heated and buoyant cases often use:
+| Fluid | molWeight | Cp [J/kg/K] | mu [Pa.s] | Pr | rho [kg/m^3] |
+| --- | --- | --- | --- | --- | --- |
+| Air (300K) | 28.96 | 1004.4 | 1.831e-05 | 0.705 | 1.225 |
+| Water (300K) | 18.015 | 4182 | 8.9e-04 | 6.13 | 998.2 |
+| Air (Sutherland) | 28.96 | 1004.4 | As=1.67e-06, Ts=170.7 | — | ideal gas |
 
-- `p`: pressure
-- `p_rgh`: pressure minus hydrostatic contribution
+## Buoyant and Thermophysical Field Sets
 
-Do not collapse them into a single incompressible-pressure interpretation.
+Mandatory fields for buoyantSimpleFoam / buoyantPimpleFoam:
+- `U`, `p`, `p_rgh`, `T`
+- Turbulence fields (k, omega/epsilon, nut) if turbulent
+- `alphat` (turbulent thermal diffusivity)
 
-Common migration failure:
+Required constant/ files:
+- `thermophysicalProperties`
+- `turbulenceProperties`
+- `g` (gravity vector)
 
-- copying a `simpleFoam` case and adding `T`, while ignoring thermophysical models and hydrostatic-pressure handling
+### Gravity File
 
-## Practical startup rules
+```c++
+// constant/g
+dimensions      [0 1 -2 0 0 0 0];
+value           (0 -9.81 0);
+```
 
-For compressible or buoyant startup:
+### alphat Wall BC
 
-1. choose the correct solver family first
-2. write the required thermal and pressure fields together
-3. add thermophysical models before tuning numerics
-4. use conservative startup timesteps and coupling controls
-5. treat buoyancy-driven transients as transient from the beginning
+```c++
+// 0/alphat
+walls
+{
+    type            compressible::alphatWallFunction;
+    Prt             0.85;
+    value           uniform 0;
+}
+```
 
-If a heated case is failing, check field set and solver family before changing every boundary condition.
+## Pressure Conventions
+
+| Solver type | Pressure variable | Dimensions | Notes |
+| --- | --- | --- | --- |
+| Incompressible (simpleFoam) | p (= P/rho) | [0 2 -2 0 0 0 0] | Kinematic pressure |
+| Buoyant (buoyantSimpleFoam) | p_rgh (= p - rho*g*h) | [1 -1 -2 0 0 0 0] | Modified pressure |
+| Compressible (rhoPimpleFoam) | p | [1 -1 -2 0 0 0 0] | Thermodynamic pressure |
+| VOF (interFoam) | p_rgh | [1 -1 -2 0 0 0 0] | Hydrostatic removed |
+
+**Critical:** Using the wrong pressure variable causes silent errors. Always match solver expectations.
+
+## Conjugate Heat Transfer (chtMultiRegionFoam)
+
+### Case Directory Structure
+
+```
+case/
+├── 0/
+│   ├── fluid/    (U, p_rgh, T, k, omega, nut, alphat)
+│   └── solid/    (T)
+├── constant/
+│   ├── fluid/    (thermophysicalProperties, turbulenceProperties, polyMesh/)
+│   ├── solid/    (thermophysicalProperties, polyMesh/)
+│   └── regionProperties
+├── system/
+│   ├── fluid/    (fvSchemes, fvSolution, decomposeParDict)
+│   ├── solid/    (fvSchemes, fvSolution, decomposeParDict)
+│   ├── controlDict, decomposeParDict, topoSetDict
+```
+
+### regionProperties
+
+```c++
+// constant/regionProperties
+regions ( fluid (fluid) solid (solid) );
+```
+
+### Solid thermophysicalProperties
+
+```c++
+thermoType
+{
+    type            heSolidThermo;
+    mixture         pureMixture;
+    transport       constIso;
+    thermo          hConst;
+    equationOfState rhoConst;
+    specie          specie;
+    energy          sensibleEnthalpy;
+}
+mixture
+{
+    specie      { molWeight 56; }
+    transport   { kappa 80; }
+    thermodynamics { Cp 450; Hf 0; }
+    equationOfState { rho 7870; }
+}
+```
+
+### Common Solid Properties
+
+| Material | rho [kg/m^3] | Cp [J/kg/K] | kappa [W/m/K] |
+| --- | --- | --- | --- |
+| Steel | 7870 | 450 | 80 |
+| Aluminum | 2700 | 900 | 237 |
+| Copper | 8960 | 385 | 401 |
+| Glass | 2500 | 840 | 1.0 |
+
+### Fluid-Solid Interface Coupling BCs
+
+```c++
+// Fluid side:
+fluid_to_solid
+{
+    type            compressible::turbulentTemperatureCoupledBaffleMixed;
+    Tnbr            T;
+    kappaMethod     fluidThermo;
+    value           uniform 300;
+}
+// Solid side:
+solid_to_fluid
+{
+    type            compressible::turbulentTemperatureCoupledBaffleMixed;
+    Tnbr            T;
+    kappaMethod     solidThermo;
+    value           uniform 300;
+}
+```
+
+### CHT Workflow
+
+```bash
+blockMesh → topoSet → splitMeshRegions -cellZones -overwrite
+→ set BCs per region → decomposePar -allRegions
+→ mpirun -np N chtMultiRegionFoam -parallel → reconstructPar -allRegions
+```
+
+## Temperature Boundary Conditions
+
+```c++
+// Fixed temperature wall
+hotWall { type fixedValue; value uniform 350; }
+
+// Adiabatic wall
+insulatedWall { type zeroGradient; }
+
+// Heat flux wall
+heatFluxWall
+{
+    type  externalWallHeatFluxTemperature;
+    mode  flux;
+    q     uniform 1000;      // W/m^2
+    kappaMethod fluidThermo;
+    value uniform 300;
+}
+
+// Convective heat transfer
+outerWall
+{
+    type  externalWallHeatFluxTemperature;
+    mode  coefficient;
+    h     uniform 10;        // W/m^2/K
+    Ta    uniform 293;       // ambient temperature
+    kappaMethod fluidThermo;
+    value uniform 300;
+}
+```
+
+## Common Heat Transfer Pitfalls
+
+1. **Wrong thermoType**: hePsiThermo vs heRhoThermo must match solver expectation.
+2. **Missing alphat field**: Turbulent thermal diffusivity needed for all turbulent heat transfer.
+3. **Missing g file**: Buoyant solvers crash without `constant/g`.
+4. **Boussinesq with large ΔT**: Use ideal gas if ΔT > 30K (Boussinesq is a linearization).
+5. **CHT mesh alignment**: Fluid-solid interface must share patch faces.
+6. **Copying simpleFoam case for heat transfer**: Missing thermophysical models and p_rgh.

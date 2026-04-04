@@ -1,0 +1,26 @@
+# Surface/slab relaxation INCAR template
+# Use with POSCAR that has Selective Dynamics enabled
+# Fix bottom 2-3 layers (F F F), free top 2-3 layers (T T T)
+# KPOINTS: dense in-plane (e.g. 8x8x1), 1 along vacuum direction
+SYSTEM = slab_relax
+PREC   = Accurate
+ENCUT  = 520
+EDIFF  = 1E-6
+EDIFFG = -0.02
+
+IBRION = 2
+NSW    = 300
+ISIF   = 2            # CRITICAL: ions only; NEVER use ISIF=3 for slabs (vacuum collapses)
+
+ISMEAR = 0            # Gaussian; do NOT use ISMEAR>0 (MP) for surfaces
+SIGMA  = 0.05
+
+# Dipole correction (for asymmetric slabs or single-side adsorption)
+LDIPOL = .TRUE.       # correct potential and forces for slab dipole
+IDIPOL = 3            # correction along z (vacuum direction)
+DIPOL  = 0.5 0.5 0.35 # fractional coords of slab center; adjust for your geometry
+
+LREAL  = Auto
+LWAVE  = .FALSE.
+LCHARG = .TRUE.
+LORBIT = 11

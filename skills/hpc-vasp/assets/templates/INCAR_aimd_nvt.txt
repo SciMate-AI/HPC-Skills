@@ -1,0 +1,29 @@
+# NVT ab initio molecular dynamics INCAR template
+# Nose-Hoover thermostat at constant temperature
+# Use large supercell (>= 64 atoms) with Gamma-only k-points
+SYSTEM = aimd_nvt
+PREC   = Normal        # Accurate is overkill for MD
+ENCUT  = 400           # can be lower than static; test convergence
+EDIFF  = 1E-5          # looser than static; speed matters for MD
+
+IBRION = 0             # molecular dynamics
+NSW    = 5000          # number of MD steps (total time = NSW * POTIM)
+POTIM  = 1.0           # time step in fs; use 0.5 if H atoms present
+ISIF   = 2             # fix cell shape and volume (NVT)
+
+# Thermostat
+MDALGO = 2             # Nose-Hoover thermostat
+SMASS  = 1.0           # Nose mass (coupling strength); 0.5-3.0 typical
+TEBEG  = 300           # initial temperature (K)
+TEEND  = 300           # final temperature (K); same = constant T
+
+# Performance settings for MD
+ISYM   = 0             # CRITICAL: disable symmetry for MD
+ALGO   = VeryFast      # RMM-DIIS; fastest electronic minimizer
+NELMIN = 4             # minimum SCF steps per ionic step (avoid incomplete SCF)
+ISMEAR = 0
+SIGMA  = 0.1
+
+LREAL  = Auto          # real-space projection for speed
+LWAVE  = .FALSE.       # skip WAVECAR; essential for MD I/O performance
+LCHARG = .FALSE.

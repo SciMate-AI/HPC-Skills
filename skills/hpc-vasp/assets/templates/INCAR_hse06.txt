@@ -1,0 +1,27 @@
+# HSE06 hybrid functional INCAR template
+# IMPORTANT: Pre-converge with PBE first and keep WAVECAR to speed up HSE06
+# HSE06 is 20-100x more expensive than PBE
+SYSTEM = hse06_static
+PREC   = Accurate
+ENCUT  = 520
+EDIFF  = 1E-6
+
+IBRION = -1
+NSW    = 0
+
+# Hybrid functional settings
+LHFCALC  = .TRUE.    # enable Hartree-Fock exchange
+HFSCREEN = 0.2       # screening parameter: 0.2 = HSE06, 0.3 = HSE03
+# AEXX   = 0.25      # default 25% exact exchange; tune for specific materials
+ALGO     = Damped    # most robust for hybrids; or All (faster if it converges)
+TIME     = 0.4       # step size for Damped algorithm
+PRECFOCK = Fast      # FFT precision for Fock exchange; Fast is usually sufficient
+ISYM     = 3         # symmetrize charge density (recommended for hybrids)
+NELM     = 200       # hybrids converge slowly
+
+ISMEAR = 0
+SIGMA  = 0.05
+
+LORBIT = 11
+LWAVE  = .TRUE.      # save for band structure follow-on
+LCHARG = .TRUE.

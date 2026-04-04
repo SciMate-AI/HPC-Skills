@@ -23,12 +23,20 @@ ddtSchemes
 gradSchemes
 {
     default         Gauss linear;
+    // Add gradient limiter for stability on non-ideal meshes:
+    // grad(U)      cellLimited Gauss linear 1;
 }
 
 divSchemes
 {
     default         none;
-    div(phi,U)      Gauss upwind;
+    // upwind = 1st order, stable but diffusive. For production RANS, upgrade to:
+    //   bounded Gauss linearUpwind grad(U)   (2nd order, recommended for RANS)
+    // For LES, use: Gauss LUST grad(U)
+    div(phi,U)      bounded Gauss linearUpwind grad(U);
+    // For turbulence scalars, keep upwind for stability:
+    // div(phi,k)      bounded Gauss upwind;
+    // div(phi,omega)  bounded Gauss upwind;
     div((nuEff*dev2(T(grad(U))))) Gauss linear;
 }
 

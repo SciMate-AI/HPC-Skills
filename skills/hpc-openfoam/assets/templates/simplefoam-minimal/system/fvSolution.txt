@@ -36,18 +36,30 @@ solvers
 
 SIMPLE
 {
-    nNonOrthogonalCorrectors 1;
+    nNonOrthogonalCorrectors 1;   // increase to 2 if non-orthogonality > 70 degrees
+    consistent      yes;           // SIMPLEC: faster convergence, allows higher relaxation
+    // For enclosed domains (no pressure outlet), add:
+    // pRefCell    0;
+    // pRefValue   0;
+    residualControl
+    {
+        p       1e-4;
+        U       1e-4;
+        // "(k|omega)" 1e-4;    // uncomment for turbulent cases
+    }
 }
 
 relaxationFactors
 {
     fields
     {
-        p               0.3;
+        p               0.3;    // pressure: 0.2 (conservative) to 0.5 (aggressive)
     }
     equations
     {
-        U               0.7;
+        U               0.7;    // velocity: 0.5 (conservative) to 0.9 (aggressive)
+        // k           0.5;     // uncomment for turbulent cases
+        // omega       0.5;
     }
 }
 
