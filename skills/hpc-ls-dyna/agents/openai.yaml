@@ -1,0 +1,4 @@
+interface:
+  display_name: "HPC LS-DYNA"
+  short_description: "Build and debug LS-DYNA keyword decks and workflows"
+  default_prompt: "Use $hpc-ls-dyna to create or repair an LS-DYNA model with stable controls, contact, materials, and solver setup."

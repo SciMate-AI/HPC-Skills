@@ -1,0 +1,34 @@
+00_main_control.k
+10_geometry/
+  nodes.k
+  elements_shell.k
+  elements_solid.k
+11_sets/
+  node_sets.k
+  segment_sets.k
+  part_sets.k
+20_sections_materials/
+  sections_shell.k
+  sections_solid.k
+  materials_metals.k
+  materials_polymers.k
+  materials_special.k
+30_parts/
+  body_in_white_parts.k
+  closures_parts.k
+  fasteners_parts.k
+40_loads_bc/
+  initial_velocity.k
+  spc_and_motion.k
+  load_curves.k
+50_contact_constraints/
+  contact_main.k
+  tied_interfaces.k
+  connectors_and_preload.k
+60_output/
+  database_main.k
+  history_requests.k
+70_coupling_optional/
+  thermal.k
+  ale_or_icfd.k
+
