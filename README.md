@@ -1,6 +1,6 @@
 # scimate
 
-Portable agent skills for High Performance Computing workflows across OpenFOAM, SU2, FEniCS, CalculiX, ElmerFEM, PETSc, hypre, Trilinos, LAMMPS, GROMACS, Quantum ESPRESSO, VASP, Gaussian, ParaView, and Gmsh, plus MPI, GPU, Spack, reproducible toolchains, and cluster orchestration.
+Portable agent skills for High Performance Computing workflows across OpenFOAM, SU2, LS-DYNA, FEniCS, CalculiX, ElmerFEM, PETSc, hypre, Trilinos, LAMMPS, GROMACS, Quantum ESPRESSO, VASP, Gaussian, ParaView, and Gmsh, plus MPI, GPU, Spack, reproducible toolchains, and cluster orchestration.
 
 ## Repository
 
@@ -54,6 +54,7 @@ Use the normalized folders in `skills/`.
 - `hpc-lammps`
 - `hpc-gromacs`
 - `hpc-su2`
+- `hpc-ls-dyna`
 - `hpc-quantum-espresso`
 - `hpc-vasp`
 - `hpc-gaussian`
@@ -61,6 +62,11 @@ Use the normalized folders in `skills/`.
 - `hpc-elmerfem`
 - `hpc-paraview`
 - `hpc-orchestration`
+
+## New skill spotlight
+
+- `hpc-ls-dyna` adds a production-grade LS-DYNA skill with progressive references for explicit and implicit structural workflows, contact and preload strategy, thermal and welding workflows, SPH, ALE/S-ALE, ICFD, EM, NVH, and source-first advanced branches such as DEM, CESE, IGA, and EFG.
+- The skill also includes starter decks plus minimal project skeletons under `skills/hpc-ls-dyna/assets/templates/` and `skills/hpc-ls-dyna/assets/templates/examples/`, so users can start from either a single-file scaffold or a multi-file include-tree layout.
 
 See [skills-index.md](skills-index.md) for category-based navigation, template inventory, and skill selection guidance.
 

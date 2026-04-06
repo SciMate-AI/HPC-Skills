@@ -50,6 +50,12 @@ Use `skills/` as the only maintained distribution surface.
 | OpenFOAM | open-source CFD cases, dictionaries, turbulence, multiphase, monitoring | [skills/hpc-openfoam/SKILL.md](skills/hpc-openfoam/SKILL.md) |
 | SU2 | config-driven CFD, markers, compressible/incompressible setups, convergence control | [skills/hpc-su2/SKILL.md](skills/hpc-su2/SKILL.md) |
 
+## Explicit And Implicit Dynamics
+
+| Skill | Focus | Entry |
+| --- | --- | --- |
+| LS-DYNA | `*.k` or `*.key` decks, explicit/implicit structural workflows, contact, preload, thermal/welding, SPH, ALE/S-ALE, ICFD, EM, NVH, and source-first advanced branches such as DEM, CESE, IGA, and EFG | [skills/hpc-ls-dyna/SKILL.md](skills/hpc-ls-dyna/SKILL.md) |
+
 ## FEM And Multiphysics
 
 | Skill | Focus | Entry |
@@ -93,6 +99,7 @@ Use this quick map when the user asks for:
 
 - Open-source CFD dictionaries and patch logic -> `hpc-openfoam`
 - SU2 `.cfg` and marker debugging -> `hpc-su2`
+- LS-DYNA `*.k`/`*.key` decks, contact/preload debugging, explicit/implicit setup, thermal/welding, SPH, ALE, or NVH example reuse -> `hpc-ls-dyna`
 - PDE weak forms, UFL, or DOLFINx -> `hpc-fenics`
 - PETSc `KSP` or `SNES` or `TS`, options database tuning, or MPI assembly debugging -> `hpc-petsc`
 - hypre `BoomerAMG`, `IJ` matrices, or PETSc-backed hypre preconditioning -> `hpc-hypre`
@@ -124,6 +131,7 @@ High-value templates currently included:
 - HPC Spack: minimal environment, compiler and external-package config examples, and install/build workflow templates
 - GPU Stack: minimal CUDA vector-add kernel, NVCC build script, and single- or multi-rank GPU Slurm launch templates
 - Gmsh: minimal `.geo`, Python OpenCASCADE example, and batch or Slurm meshing scripts
+- LS-DYNA: explicit, implicit, bolt-preload, thermal, SPH, ICFD, and ALE starter decks plus minimal multi-file project skeletons
 - FEniCS: DOLFINx Poisson and transient diffusion scripts
 - PETSc: minimal C and `petsc4py` KSP solve skeletons plus build and Slurm run templates
 - hypre: minimal `IJ` plus `PCG` plus `BoomerAMG` solve skeleton plus build and Slurm run templates
