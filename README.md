@@ -1,5 +1,9 @@
 # scimate
 
+<!-- yarkr:badges:start -->
+[![Indexed on Yarkr](https://api.yarkr.com/functions/v1/api/api/v1/badges/repos/SciMate-AI/HPC-Skills/version.svg)](https://yarkr.com/arks/scimate-ai/hpc-skills)
+<!-- yarkr:badges:end -->
+
 Portable agent skills for High Performance Computing workflows across OpenFOAM, SU2, LS-DYNA, FEniCS, CalculiX, ElmerFEM, PETSc, hypre, Trilinos, LAMMPS, GROMACS, Quantum ESPRESSO, VASP, Gaussian, ParaView, and Gmsh, plus MPI, GPU, Spack, reproducible toolchains, and cluster orchestration.
 
 ## Repository
@@ -37,6 +41,40 @@ Use the normalized folders in `skills/`.
 - Codex-style install: copy or sync `skills/<skill-name>/` into `$HOME/.codex/skills/`
 - Claude Code personal or project install: copy or sync `skills/<skill-name>/` into `$HOME/.claude/skills/` or `.claude/skills/`
 - Claude Code plugin-style install: keep the repository layout and expose `skills/<skill-name>/` from the plugin
+
+<!-- yarkr:install:start -->
+## Install with Yarkr
+
+This repo is indexed on [Yarkr](https://yarkr.com/arks/scimate-ai/hpc-skills) as the ark [scimate-ai/hpc-skills](https://yarkr.com/arks/scimate-ai/hpc-skills), so its skills install into Claude Code, Codex, Cursor and other agent harnesses with one command.
+
+### CLI
+
+Install the whole ark, which Yarkr keeps equal to this repo:
+
+```bash
+npx yarkr-cli sync scimate-ai/hpc-skills
+```
+
+Or add individual skills:
+
+```bash
+npx yarkr-cli add skill:scimate-ai/hpc-skills/hpc-calculix
+npx yarkr-cli add skill:scimate-ai/hpc-skills/hpc-elmerfem
+npx yarkr-cli add skill:scimate-ai/hpc-skills/hpc-fenics
+```
+
+No Node.js? `curl -fsSL https://yarkr.com/install.sh | sh` (macOS, Linux) or `irm https://yarkr.com/install.ps1 | iex` (Windows PowerShell) installs `yarkr` as a standalone binary; then type `yarkr` in place of `npx yarkr-cli`.
+
+### MCP
+
+Connect your agent to the ark over MCP:
+
+```bash
+npx yarkr-cli mcp add scimate-ai/hpc-skills
+```
+
+Or point any MCP client at `https://api.yarkr.com/functions/v1/api/mcp/o/scimate-ai/hpc-skills`.
+<!-- yarkr:install:end -->
 
 ## Current skills
 
